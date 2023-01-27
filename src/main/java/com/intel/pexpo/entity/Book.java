@@ -1,9 +1,14 @@
 package com.intel.pexpo.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "Book")
 @Table(name = "Book")
 public class Book implements Serializable {
@@ -16,6 +21,7 @@ public class Book implements Serializable {
     @Column(name = "author")
     @Basic(fetch = FetchType.EAGER)
     private String author;
+
 
     public Long getBookId() {
         return bookId;

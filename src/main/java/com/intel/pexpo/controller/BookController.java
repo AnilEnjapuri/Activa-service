@@ -55,7 +55,7 @@ public class BookController {
     }
 
     @GetMapping("/getBook/{bookId}")
-    public Optional<Book> getBookById(@PathVariable Long bookId){
+    public Book getBookById(@PathVariable Long bookId){
         return bookService.getBookById(bookId);
     }
 
