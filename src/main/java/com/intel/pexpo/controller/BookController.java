@@ -2,17 +2,14 @@ package com.intel.pexpo.controller;
 
 
 import com.intel.pexpo.entity.Book;
-import com.intel.pexpo.resource.BookResource;
 import com.intel.pexpo.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class BookController {
@@ -38,13 +35,28 @@ public class BookController {
         logger.debug("Request {}", book);
         bookService.save(book);
         String s = "saveBook";
-        /*if (s.equalsIgnoreCase("saveBook")) {
+        if (s.equalsIgnoreCase("saveBook")) {
             throw new RuntimeException("Opps Exception raised....");
-        }*/
+        }
         String response = "Hi " + s + " Welcome to Java Techie";
         logger.debug("Response {}", response);
         System.out.println("respons eof logger"  +response);
         return response;
+    }
+
+    @PutMapping("/updateBook")
+    public Book updateBook(@RequestBody Book book){
+       return bookService.updateBook(book);
+    }
+
+    @GetMapping("/booklist")
+    public List<Book> bookList(){
+        return bookService.bookList();
+    }
+
+    @GetMapping("/getBook/{bookId}")
+    public Optional<Book> getBookById(@PathVariable Long bookId){
+        return bookService.getBookById(bookId);
     }
 
     @GetMapping("/message")
@@ -55,4 +67,5 @@ public class BookController {
         logger.trace("excel");
         return "success";
     }
+
 }
