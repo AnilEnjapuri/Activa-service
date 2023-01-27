@@ -28,13 +28,16 @@ public class ServiceMockitoTest {
     @InjectMocks
     BookService bookService = new BookServiceImpl();
 
-    public List<Book> bookList;
+   // public List<Book> bookList;
     @Test
     @Order(1)
     public void testGetAllBooks(){
         List<Book> bookList = new ArrayList<Book>();
+        bookList.add(new Book(25L, "xyz"));
+        bookList.add(new Book(26L, "pqr"));
         when(bookRepository.findAll()).thenReturn(bookList);
-        bookService.bookList();
+        assertEquals(2, bookService.bookList().size());
+        //;
     }
 
     @Test
@@ -44,7 +47,7 @@ public class ServiceMockitoTest {
         System.out.println(book);
         long bookId = 1;
         when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
-        //assertEquals(bookId, bookService.getBookById(bookId).get());
+        //assertEquals(bookId, bookService.getBookById(bookId));
     }
 
     @Test
@@ -58,11 +61,9 @@ public class ServiceMockitoTest {
     @Test
     @Order(4)
     public void testUpdateBook(){
-        Book book = new Book();
+        Book book = new Book(22L, "mno");
         when(bookRepository.save(book)).thenReturn(book);
         assertEquals(book, bookService.save(book));
     }
-
-
 
 }
